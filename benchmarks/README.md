@@ -1,59 +1,65 @@
 # Benchmark
 
----
 
 ## Quick Start
 
-### Requirements
-
-- **Python**: >= 3.10
-- **CUDA**: GPU environment with CUDA support
-- **Hardware**: Multi-GPU setup recommended for faster evaluation
-
-**Main Dependencies**:
-- PyTorch 2.5.1
-- Transformers 4.52.0
-- Ray 2.43.0
-- vLLM 0.7.3
-
-### Step 1: Prepare Evaluation Data
-
-Place the evaluation data in the project directory:
-
-```bash
-# Data directory structure
-./data_v1.0/
-├── rec_reason/
-├── item_understand/
-├── ad/
-├── product/
-├── label_cond/
-├── video/
-├── interactive/
-└── label_pred/
-```
-
-### Step 2: Install Dependencies
+### Step 1: Install Dependencies
 
 ```bash
 cd benchmarks
 
+conda create -n benchmark python=3.10 
+conda activate benchmark
+pip install uv
+uv pip install torch==2.5.1 transformers==4.52.0 vllm==0.7.3
+pip install -r requirements.txt
 pip install -e . --no-deps --no-build-isolation
-
 ```
 
-### Step 3: Start Ray Cluster
+### Step 2: Start Ray Cluster (Optional)
 
 ```bash
 # Initialize multi-node multi-GPU environment
+# Skip this step if using single-node multi-GPU setup
 bash scripts/init_ray_cluster.sh
+```
+
+
+### Step 3: Configure LLM API
+
+Edit `api/config/llm_config.json` to fill in your Gemini configuration:
+
+```json
+{
+  "gemini": {
+    "project": "<your-project>",
+    "location": "<your-location>",
+    "credentials_path": "<path-to-credentials>",
+    ...
+  }
+}
+```
+
+**Note**: Only `project`, `location`, and `credentials_path` need to be configured. 
+
+Test the configuration:
+
+```python
+from api import get_client_from_config
+
+# Create client
+client = get_client_from_config("gemini")
+
+# Generate text
+response = client.generate("Tell me a joke")
+print(response)
 ```
 
 ### Step 4: Run Evaluation
 
 ```bash
-export BENCHMARK_BASE_DIR="./benchmarks"
-export BENCHMARK_DATA_DIR="./raw_data/onerec_data/benchmark_data"
+export BENCHMARK_BASE_DIR="."
+export BENCHMARK_DATA_DIR="../raw_data/onerec_data/benchmark_data"
 export DATA_VERSION="v1.0"
 
 bash eval_script.sh <model_path> <result_name> <enable_thinking>
@@ -81,16 +87,19 @@ bash eval_script.sh \
     true
 ```
 
+For debugging purposes, you can add `--sample_size 10` to each python command in `eval_script.sh` to run evaluation on a smaller subset of data.
+
+
 ### Step 5: View Results
 
 After evaluation completes, results are saved in:
 ```
-./benchmarks/results/v1.0/results_<result_name>/
+./results/v1.0/results_<result_name>/
 ```
 
 Log files are located at:
 ```
-./benchmarks/auto_eval_logs/v1.0/<result_name>.log
+./auto_eval_logs/v1.0/<result_name>.log
 ```
 
 

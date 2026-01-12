@@ -8,8 +8,8 @@ Note: At time of writing, verl+vllm 0.7.x supports **FSDP** for training and **v
 
 ```
 # Create the conda environment
-conda create -n verl python==3.10
-conda activate verl
+conda create -n distill python==3.10
+conda activate distill
 
 # Install verl
 git clone https://github.com/volcengine/verl.git

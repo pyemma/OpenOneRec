@@ -48,7 +48,6 @@ bash init_ray_cluster.sh
 # Required: model and data paths
 export BASE_MODEL=/path/to/student_model
 export TEACHER_MODEL=/path/to/teacher_model   # e.g. Qwen3-1.7B
-export DATASET_PARQUET=/path/to/train.parquet
 
 # Optional: extended-vocabulary distillation settings (defaults in the script)
 export EXTEND_VOCAB_START_TOKEN=151669         # token_id >= this value is treated as an "extended vocab token"

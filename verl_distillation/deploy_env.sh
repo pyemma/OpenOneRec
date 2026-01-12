@@ -8,7 +8,7 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 PROJECT_DIR=${SCRIPT_DIR}
 
 # Configuration
-CONDA_ENV_NAME=${CONDA_ENV_NAME:-"verl"}
+CONDA_ENV_NAME=${CONDA_ENV_NAME:-"distill"}
 PYTHON_VERSION=${PYTHON_VERSION:-"3.10"}
 HOSTFILE=${HOSTFILE:-"/etc/mpi/hostfile"}
 

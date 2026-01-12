@@ -61,7 +61,7 @@ export USE_FORCE_PREFIX=${USE_FORCE_PREFIX:-False}
 # ============================================================================
 # Data Configuration
 # ============================================================================
-export DATA_DIR=${DATA_DIR:-"/path/to/your/data"}
+export DATA_DIR=${DATA_DIR:-"$(realpath ../output/rl_data)"}
 export TRAIN_FILES=${TRAIN_FILES:-"[$DATA_DIR/train.parquet]"}
 export VAL_FILES=${VAL_FILES:-"[$DATA_DIR/test.parquet]"}
 
@@ -101,6 +101,8 @@ echo "==================================="
 # ============================================================================
 mkdir -p logs
 
+conda activate verl
+
 python3 -u -m recipe.onerec.main_onerec_ppo \
     algorithm.adv_estimator=grpo \
     data.train_files=$TRAIN_FILES \
@@ -117,6 +119,8 @@ python3 -u -m recipe.onerec.main_onerec_ppo \
     data.truncation='error' \
     data.custom_cls.path=$SCRIPT_DIR/onerec_recipe.py \
     data.custom_cls.name=OneRecDataset \
+    data.reward_fn_key='source' \
+    ++data.data_source_key='source' \
     custom_reward_function.path=$SCRIPT_DIR/onerec_recipe.py \
     custom_reward_function.name=compute_score \
     actor_rollout_ref.actor.use_dynamic_bsz=$USE_DYNAMIC_BSZ \
@@ -140,6 +144,7 @@ python3 -u -m recipe.onerec.main_onerec_ppo \
     ++actor_rollout_ref.rollout.stage1_max_tokens=$STAGE1_MAX_TOKENS \
     ++actor_rollout_ref.rollout.stage2_num_tokens=$STAGE2_NUM_TOKENS \
     ++actor_rollout_ref.rollout.stage2_beam_size=$STAGE2_BEAM_SIZE \
+    ++actor_rollout_ref.rollout.engine_kwargs.vllm.max_logprobs=320 \
     actor_rollout_ref.rollout.temperature=$TEMPERATURE \
     actor_rollout_ref.rollout.top_p=1.0 \
     actor_rollout_ref.rollout.do_sample=True \

@@ -47,11 +47,8 @@ See [data/README.md](../data/README.md) for detailed data format specification.
 cd verl_rl
 
 export BASE_MODEL="/path/to/your/model"
-export DATA_DIR="/path/to/your/data"
-export TRAIN_FILES="[$DATA_DIR/train.parquet]"
-export VAL_FILES="[$DATA_DIR/test.parquet]"
 
-bash recipe/onerec/run_grpo.sh
+bash recipe/onerec/run_grpo.sh 2>&1 | tee logs/train_$(date +%Y%m%d_%H%M%S).log
 ```
 
 ## Configuration

@@ -191,15 +191,15 @@ Install dependencies
 
 .. code:: bash
 
-   conda create -n verl python==3.12
-   conda activate verl
+   conda create -n distill python==3.12
+   conda activate distill
 
 
 2. Then, execute the ``install.sh`` script that we provided in verl:
 
 .. code:: bash
 
-    # Make sure you have activated verl conda env
+    # Make sure you have activated distill conda env
     # If you need to run with megatron
     bash scripts/install_vllm_sglang_mcore.sh
     # Or if you simply need to run with FSDP

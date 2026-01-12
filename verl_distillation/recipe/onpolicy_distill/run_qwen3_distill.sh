@@ -49,7 +49,7 @@ CUDA_GRAPH_MAX_BS=64
 # You MUST set these paths for your own environment.
 export BASE_MODEL=${BASE_MODEL:-""}
 export TEACHER_MODEL=${TEACHER_MODEL:-""}
-export DATASET_PARQUET=${DATASET_PARQUET:-""}
+export DATASET_PARQUET=${DATASET_PARQUET:-"$(realpath ../output/onpolicy_distillation.parquet)"}
 
 # Logging: default is console only.
 # To enable W&B, export WANDB_API_KEY and override trainer.logger:

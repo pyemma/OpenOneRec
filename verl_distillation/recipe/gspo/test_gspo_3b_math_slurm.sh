@@ -14,10 +14,10 @@
 set -xeuo pipefail
 
 # activate the venv
-echo "Activating verl environment..."
+echo "Activating distill environment..."
 eval "$(conda shell.bash hook)"
 conda deactivate
-conda activate verl
+conda activate distill
 
 # can make training faster, depends on your infrastructure
 export NCCL_IBEXT_DISABLE=1

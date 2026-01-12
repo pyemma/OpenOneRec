@@ -11,7 +11,7 @@ PROJECT_DIR=${SCRIPT_DIR}
 # Configuration
 PORT=${RAY_PORT:-6379}
 HOSTFILE=${HOSTFILE:-"/etc/mpi/hostfile"}
-CONDA_ENV_NAME=${CONDA_ENV_NAME:-"verl"}
+CONDA_ENV_NAME=${CONDA_ENV_NAME:-"distill"}
 LOG_DIR="${PROJECT_DIR}/logs/ray"
 
 # Colors
