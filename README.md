@@ -118,6 +118,8 @@ On the **Amazon Benchmark** (10 datasets), OpenOneRec demonstrates exceptional z
 
 *Metric: Recall@10. Ours refers to OneRec-Foundation with text-augmented itemic tokens strategy.*
 
+For implementation details, please refer to [GRLM](https://github.com/ZY0025/GRLM).
+
 ## 🚀 Quick Start
 
 *Code release and detailed usage instructions are coming soon.*
